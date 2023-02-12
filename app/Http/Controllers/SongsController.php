@@ -32,7 +32,7 @@ class SongsController extends Controller
       return response()->json([
         'status' => 'error',
         'message' => 'album not found',
-      ]);
+      ], 404);
     }
 
     $albumSongs = $albumToView->songs()->get();
@@ -48,7 +48,7 @@ class SongsController extends Controller
       'status' => 'success',
       'message' => 'songs for album described ' .$albumToView->description. ' ',
       'songs' => $songs
-    ]);
+    ], 200);
   }
 
   public function getAllGenres()
@@ -58,7 +58,7 @@ class SongsController extends Controller
       'status' => 'success',
       'message' => 'all genres',
       'songs' => $allGenres
-    ]);
+    ], 200);
   }
 
   public function createNewSong(Request $request, $albumId)
@@ -73,7 +73,7 @@ class SongsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'please fill all fields and select the genre',
-        ]);
+        ], 400);
       }
 
       $newSong = [
@@ -92,13 +92,13 @@ class SongsController extends Controller
       return response()->json([
         'status' => 'success',
         'message' => 'new song created successfully',
-      ]);
+      ], 201);
     } catch (\Throwable $th) {
       DB::rollback();
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 
@@ -116,14 +116,14 @@ class SongsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'album not found',
-        ]);
+        ], 404);
       }
 
       if (!$songToUpdate) {
         return response()->json([
           'status' => 'error',
           'message' => 'song not found',
-        ]);
+        ], 404);
       }
 
       $songToUpdate->update([
@@ -137,13 +137,13 @@ class SongsController extends Controller
         'status' => 'success',
         'message' => 'song updated successfully',
         'updated_album' => $songToUpdate
-      ]);
+      ], 200);
     } catch (\Throwable $th) {
       DB::rollback();
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 
@@ -156,20 +156,20 @@ class SongsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'song not found',
-        ]);
+        ], 404);
       }
       $songToDelete->delete();
       DB::commit();
       return response()->json([
         'status' => 'success',
         'message' => 'song deleted successfully',
-      ]);
+      ], 200);
     } catch (\Throwable $th) {
       DB::rollback();
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 }
