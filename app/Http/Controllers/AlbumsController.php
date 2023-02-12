@@ -10,24 +10,28 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class AlbumsController extends Controller
-{
-  
+{  
   public $authenticatedUser;
 
   public function __construct()
   {
-      $this->middleware('auth:api');
-      $this->middleware(function ($request, $next) {
-         $this->authenticatedUser = Auth::user();
-            return $next($request);
-        });
+    $this->middleware('auth:api');
+    $this->middleware(function ($request, $next)
+    {
+      $this->authenticatedUser = Auth::user();
+      return $next($request);
+    });
   }
 
   public function getMyAlbums()
   {
     $authenticatedUser = $this->authenticatedUser;
     $myAlbums = $authenticatedUser->albums()->get();
-    return $myAlbums;
+    return response()->json([
+      'status' => 'success',
+      'message' => 'my albums',
+      'albums' => $myAlbums
+    ]);
   }
 
   public function createNewAlbum(Request $request)
@@ -79,7 +83,7 @@ class AlbumsController extends Controller
 
   public function getSingleAlbum($id)
   {
-    $albumToView = Album::with('songs')->find($id);
+    $albumToView = Album::find($id);
     if (!$albumToView) {
       return response()->json([
         'status' => 'error',
@@ -107,7 +111,7 @@ class AlbumsController extends Controller
         ]);
       }
 
-       $updatedAlbum = $albumToUpdate->update([
+      $albumToUpdate->update([
         'description' => $description ? $description : $albumToUpdate->description,
         'release_date' => $release_date ? $release_date : $albumToUpdate->release_date
       ]);
@@ -116,7 +120,7 @@ class AlbumsController extends Controller
       return response()->json([
         'status' => 'success',
         'message' => 'album updated successfully',
-        'updated_album' => $updatedAlbum
+        'updated_album' => $albumToUpdate
       ]);
       
     } catch (\Throwable $th) {
@@ -133,6 +137,13 @@ class AlbumsController extends Controller
     try {
       DB::beginTransaction();
       $albumToDelete = Album::with('songs')->find($id);
+
+      if (!$albumToDelete) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'album not found',
+        ]);
+      }
 
       // first delete every song in the album
       if ($albumToDelete->songs()->count() > 0) {
