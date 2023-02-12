@@ -31,7 +31,7 @@ class AlbumsController extends Controller
       'status' => 'success',
       'message' => 'my albums',
       'albums' => $myAlbums
-    ]);
+    ], 200);
   }
 
   public function createNewAlbum(Request $request)
@@ -46,7 +46,7 @@ class AlbumsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'please fill all fields and upload the image',
-        ]);
+        ], 400);
       }
       
       $imageName = time() . '_'.Str::random(8).'.' .$image->getClientOriginalExtension();
@@ -69,7 +69,7 @@ class AlbumsController extends Controller
         'status' => 'success',
         'message' => 'new Album created successfully',
         'album' => $newAlbum
-      ]);
+      ], 201);
       
 
     } catch (\Throwable $th) {
@@ -77,7 +77,7 @@ class AlbumsController extends Controller
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 
@@ -88,13 +88,13 @@ class AlbumsController extends Controller
       return response()->json([
         'status' => 'error',
         'message' => 'album not found',
-      ]);
+      ], 404);
     }
     return response()->json([
       'status' => 'success',
       'message' => 'single Album',
       'album' => $albumToView
-    ]);
+    ], 200);
   }
 
   public function updateSingleAlbum(Request $request, $id)
@@ -108,7 +108,7 @@ class AlbumsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'album not found',
-        ]);
+        ], 404);
       }
 
       $albumToUpdate->update([
@@ -121,14 +121,14 @@ class AlbumsController extends Controller
         'status' => 'success',
         'message' => 'album updated successfully',
         'updated_album' => $albumToUpdate
-      ]);
+      ], 200);
       
     } catch (\Throwable $th) {
       DB::rollback();
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 
@@ -142,7 +142,7 @@ class AlbumsController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'album not found',
-        ]);
+        ], 404);
       }
 
       // first delete every song in the album
@@ -160,13 +160,13 @@ class AlbumsController extends Controller
       return response()->json([
         'status' => 'success',
         'message' => 'Album and related songs deleted successfully',
-      ]);
+      ], 200);
     } catch (\Throwable $th) {
       DB::rollback();
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]);
+      ], 500);
     }
   }
 }
