@@ -6,22 +6,22 @@
           <h2>{{ registerTitle }}</h2>
           <h5>{{ registerSubtitle }}</h5>
         </div>
-        <form>
+        <form v-on:submit.prevent="handleRegister">
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label class="form-label">Email address</label>
+            <input type="text" class="form-control" v-model="user.names">
           </div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label class="form-label">Email address</label>
+            <input type="email" class="form-control" v-model="user.email">
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" v-model="user.password">
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password Confirmation</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label class="form-label">Password Confirmation</label>
+            <input type="password" class="form-control" v-model="user.passwordConfirm">
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
         </form>
@@ -35,7 +35,26 @@
     data() {
       return {
         registerTitle: 'Welcome To movies App',
-        registerSubtitle: 'Create Account'
+        registerSubtitle: 'Create Account',
+        isSubmitting: false,
+        user: {
+          names: '',
+          email: '',
+          password: '',
+          passwordConfirm: ''
+        }
+      }
+    },
+    methods: {
+      async handleRegister() {
+        try {
+          this.isSubmitting = true;
+          let response = await this.$store.dispatch('authStore/register', this.user);
+          console.log(response.data);
+        } catch (error) {
+          this.isSubmitting = false;
+          console.log(error);
+        }
       }
     }
   }

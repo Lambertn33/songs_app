@@ -12,6 +12,8 @@ import RegisterView from './components/public/Register.vue';
 
 import TheNavbar from './components/nav/TheNavbar.vue';
 
+import  store  from './store';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const app = createApp(App);
@@ -27,5 +29,7 @@ const router = createRouter({
 app.component('the-navbar', TheNavbar);
 
 app.use(router);
+
+app.use(store);
 
 app.mount('#app');
