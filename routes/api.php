@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AlbumsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SongsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +21,31 @@ Route::controller(AuthController::class)->group(function() {
   Route::post('login', 'login');
   Route::post('register', 'register');
   Route::post('logout', 'logout');
+});
+
+Route::prefix('albums')->group(function() {
+  //Songs
+  Route::controller(SongsController::class)->group(function() {
+    Route::get('/getAllGenres', 'getAllGenres');
+    Route::prefix('/{albumId}')->group(function() {
+      Route::prefix('songs')->group(function() {
+        Route::get('/', 'getMyAlbumSongs');
+        Route::post('/', 'createNewSong');
+        Route::prefix('/{songId}')->group(function() {
+          Route::put('/', 'updateSong');
+          Route::delete('/', 'deleteSong');
+        });
+      });
+    });
+  });
+  // Albums
+  Route::controller(AlbumsController::class)->group(function() {
+    Route::get('/', 'getMyAlbums');
+    Route::post('/', 'createNewAlbum');
+    Route::prefix('/{id}')->group(function() {
+      Route::get('/', 'getSingleAlbum');
+      Route::put('/', 'updateSingleAlbum');
+      Route::delete('/', 'deleteSingleAlbum');
+    });
+  });
 });
