@@ -39,7 +39,7 @@ class AuthController extends Controller
           'token' => $token,
           'type' => 'bearer',
         ]
-      ]);
+      ], 200);
   }
 
   public function register(Request $request)
@@ -53,14 +53,14 @@ class AuthController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'please fill all the fields',
-        ]); 
+        ], 400); 
       }
 
       if (strlen($password) < 6) {
         return response()->json([
           'status' => 'error',
           'message' => 'the password should be at least 6 characters',
-        ]);
+        ], 400);
       }
 
       DB::beginTransaction();
@@ -70,7 +70,7 @@ class AuthController extends Controller
         return response()->json([
           'status' => 'error',
           'message' => 'the email provided is already taken',
-        ]);
+        ], 400);
       }
 
       $user = User::create([
@@ -92,14 +92,14 @@ class AuthController extends Controller
           'token' => $token,
           'type' => 'bearer',
         ]
-      ]); 
+      ], 200); 
 
       } catch (\Throwable $th) {
         DB::rollback();
         return response()->json([
           'status' => 'error',
           'message' => 'an error occured.... please try again',
-        ]); 
+        ], 500); 
       }
   }
 
@@ -110,12 +110,12 @@ class AuthController extends Controller
       return response()->json([
           'status' => 'success',
           'message' => 'Successfully logged out',
-      ]);
+      ], 200);
     } catch(\Throwable $th) {
       return response()->json([
         'status' => 'error',
         'message' => 'an error occured.... please try again',
-      ]); 
+      ], 500); 
     }
   }
 }
