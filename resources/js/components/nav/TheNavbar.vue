@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand logo" href="#">Movies App</a>
+    <a class="navbar-brand logo" href="#">Songs Application</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -44,8 +44,16 @@
         ],
         privateLinks: [
           {
-            name: 'Login Private',
-            href: '/'
+            name: 'Albums',
+            href: '/my-albums'
+          },
+          {
+            name: 'Songs',
+            href: '/my-albums'
+          },
+          {
+            name: 'Genres',
+            href: '/my-albums'
           },
         ],
       }

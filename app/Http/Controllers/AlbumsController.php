@@ -26,7 +26,17 @@ class AlbumsController extends Controller
   public function getMyAlbums()
   {
     $authenticatedUser = $this->authenticatedUser;
-    $myAlbums = $authenticatedUser->albums()->get();
+    $myAlbums = [];
+    $albums = $authenticatedUser->albums()->get();
+    foreach ($albums as $album) {
+      $myAlbums[] = [
+        'id' => $album->id,
+        'description' =>  $album->description,
+        'image' =>  $album->image,
+        'release_date' => $album->release_date,
+        'number_of_songs' => $album->songs()->count()
+      ];
+    }
     return response()->json([
       'status' => 'success',
       'message' => 'my albums',
