@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
+            $table->string('title');
             $table->date('release_date');
             $table->string('description');
             $table->string('image');
