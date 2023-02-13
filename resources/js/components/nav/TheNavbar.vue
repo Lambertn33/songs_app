@@ -6,9 +6,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item" v-for="link in getLinks" :key="link.name">
           <router-link class="nav-link active" aria-current="page" :to="link.href">{{ link.name }}</router-link>
+        </li>
+      </ul>
+      <ul v-if="isAuthenticated" class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ authenticatedUser.names }}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href @click.prevent="logout">Logout</a></li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -21,6 +31,7 @@
     data() {
       return {
         isAuthenticated: false,
+        authenticatedUser: {},
         publicLinks: [
           {
             name: 'Login',
@@ -39,9 +50,20 @@
         ],
       }
     },
+    created() {
+      this.isAuthenticated = this.$store.state.authStore.status.loggedIn;
+      this.authenticatedUser = this.$store.state.authStore.user
+    },
+
+    methods: {
+      async logout() {
+       await this.$store.dispatch('authStore/logout');
+       window.location.href="/";
+      }
+    },
     computed: {
       getLinks() {
-        return this.isAuthenticated ? this.privateLinks : this.publicLinks
+        return this.isAuthenticated ? this.privateLinks : this.publicLinks;
       }
     }
   }
