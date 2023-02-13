@@ -1,6 +1,6 @@
 <template>
   <div v-show="hasAlert" :class="renderAlertClasses" role="alert">
-    <strong>Error!</strong> {{ alertMessage }}
+    <strong>{{ renderAlertPrefix }}</strong> {{ alertMessage }}
   </div>
 </template>
 
@@ -17,6 +17,9 @@
         let classes = 'alert ';
         classes += this.alertType == 'error' ? 'alert-danger' : 'alert-success';
         return classes;
+      },
+      renderAlertPrefix() {
+        return this.alertType == 'error' ? 'Error!' : 'Success';
       }
     }    
   }

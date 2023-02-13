@@ -19,6 +19,8 @@ class Album extends Model
         'user_id' => 'string'
     ];
 
+    protected $appends = ['image'];
+
     /**
      * Get the user that owns the Album
      *
@@ -37,5 +39,10 @@ class Album extends Model
     public function songs(): HasMany
     {
         return $this->hasMany(Song::class, 'album_id', 'id');
+    }
+
+    public function getAlbumImage()
+    {
+        return url('storage/images'. $this->image);
     }
 }

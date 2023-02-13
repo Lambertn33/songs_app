@@ -18,6 +18,8 @@ import TheAlert from './components/reusable/Alert/TheAlert.vue';
 
 import TheInput from './components/reusable/Form/TheInput.vue';
 
+import TheSpinner from './components/reusable/Spinner/TheSpinner.vue';
+
 import NotFound from './components/public/NotFound.vue';
 
 import store  from './store';
@@ -39,7 +41,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: LoginView },
-    { path: '/register', component: RegisterView, beforeEnter: checkAuth },
+    { path: '/register', component: RegisterView },
     { path: '/my-albums', component: MyAlbumsView, beforeEnter: checkAuth },
     { path: '/:pathMatch(.*)*', component: NotFound }
   ]
@@ -50,6 +52,8 @@ app.component('the-navbar', TheNavbar);
 app.component('the-alert', TheAlert);
 
 app.component('the-input', TheInput);
+
+app.component('the-spinner', TheSpinner);
 
 app.use(router);
 

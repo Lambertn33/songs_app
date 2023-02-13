@@ -27,12 +27,13 @@ class AlbumsController extends Controller
   {
     $authenticatedUser = $this->authenticatedUser;
     $myAlbums = [];
-    $albums = $authenticatedUser->albums()->get();
+    $albums = $authenticatedUser->albums()->orderBy('title', 'asc')->get();
     foreach ($albums as $album) {
       $myAlbums[] = [
         'id' => $album->id,
+        'title' => $album->title,
         'description' =>  $album->description,
-        'image' =>  $album->image,
+        'image' =>  $album->getAlbumImage(),
         'release_date' => $album->release_date,
         'number_of_songs' => $album->songs()->count()
       ];

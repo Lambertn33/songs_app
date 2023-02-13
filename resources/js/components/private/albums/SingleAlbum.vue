@@ -1,12 +1,14 @@
 <template>
   <div class="container overflow-hidden">
-
-    <div class="row gx-5">
-      <div class="col-md-12">
-        <div class="p-3 border bg-light">
-            <h3 class="text-center title">Title</h3>
-            <hr>
-            <h6 class="subtitle">Number of songs:2</h6>
+    <div class="card">
+      <img :src="album.image" class="card-img-top">
+      <div class="card-body">
+        <h3 class="card-title">{{ album.title }}</h3>
+        <p class="card-text">{{ album.description }}</p>
+        <p class="card-text">Released on {{ album.release_date }}</p>
+        <div class="card-buttons">
+          <a href="#" class="btn btn-primary">View Songs</a>
+          <a href="#" class="btn btn-primary">Add New Song</a>
         </div>
       </div>
     </div>
@@ -15,15 +17,32 @@
 
 <script>
   export default {
-    
+    props: {
+      album: Object
+    }
   }
 </script>
 
 <style scoped>
-  .subtitle {
-    font-weight: 500;
+  .card-text {
+    font-weight: 600;
   }
-  .title {
+  .card-title {
     font-weight: 800;
+  }
+
+  .card {
+    width: 18rem;
+  }
+
+  .card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-img-top {
+    object-fit: cover;
+    width: 100%;
   }
 </style>
