@@ -7,23 +7,37 @@
           <h5>{{ registerSubtitle }}</h5>
         </div>
         <form v-on:submit.prevent="handleRegister">
-          <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="text" class="form-control" v-model="user.names">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" v-model="user.email">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" v-model="user.password">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password Confirmation</label>
-            <input type="password" class="form-control" v-model="user.passwordConfirm">
-          </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert"/>
+
+          <the-input
+           inputLabel="Names"
+           inputType="text"
+           :inputValue="user.names" 
+           @changeValue="newValue => user.names = newValue"
+          />
+
+          <the-input
+           inputLabel="Email"
+           inputType="email"
+           :inputValue="user.email" 
+           @changeValue="newValue => user.email = newValue"
+          />
+
+          <the-input
+           inputLabel="Password"
+           inputType="password"
+           :inputValue="user.password" 
+           @changeValue="newValue => user.password = newValue"
+          />
+
+          <the-input
+           inputLabel="Password Confirmation"
+           inputType="password"
+           :inputValue="user.passwordConfirm" 
+           @changeValue="newValue => user.passwordConfirm = newValue"
+          />
+
+          <button type="submit" :class="renderBtnClasses">{{ renderBtnText }}</button>
         </form>
       </div>
     </div>
@@ -31,12 +45,15 @@
 </template>
 
 <script>
-  export default { 
+  export default {
     data() {
       return {
         registerTitle: 'Welcome To movies App',
         registerSubtitle: 'Create Account',
         isSubmitting: false,
+        hasAlert: false,
+        alertMessage: '',
+        alertType: '',
         user: {
           names: '',
           email: '',
@@ -45,16 +62,66 @@
         }
       }
     },
+
     methods: {
+      hideModal() {
+        this.hasAlert = false;
+        this.alertMessage = '';
+        this.alertType = '';
+      },
+
+      showModal(alertType, alertMessage) {
+        this.isSubmitting = false;
+        this.hasAlert = true;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
+        setTimeout(() => {
+          this.hideModal();
+        }, 4000);
+      },
+
       async handleRegister() {
         try {
           this.isSubmitting = true;
+          let alertMessage = '';
+          let alertType = '';
+          if (this.user.password !== this.user.passwordConfirm) {
+            alertType = 'error';
+            alertMessage = 'password confirmation does not match';
+            this.showModal(alertType, alertMessage);
+            return;
+          }
           let response = await this.$store.dispatch('authStore/register', this.user);
-          console.log(response.data);
+          if (response.status == 'success') {
+            alertType = response.status;
+            alertMessage = 'Sign up made successfully... please go to login page';
+            this.user.email = '';
+            this.user.names = '';
+            this.user.password = '';
+            this.user.passwordConfirm = '';
+            this.showModal(alertType, alertMessage);
+          }
         } catch (error) {
-          this.isSubmitting = false;
-          console.log(error);
+          const alertType = 'error';
+          const alertMessage = error.response.data.message;
+          this.showModal(alertType, alertMessage);
+          return;
         }
+      }
+    },
+
+    computed: {
+      renderBtnText() {
+        return this.isSubmitting ? 
+          'Please wait......' :
+          'Register'
+      },
+      renderBtnClasses() {
+        let initialClasses = 'btn btn-primary'
+        let classes = this.isSubmitting ? 
+          `${initialClasses} btn-register` :
+          initialClasses;
+        return classes;
       }
     }
   }
@@ -70,6 +137,10 @@
 
   form label {
     font-weight: 700;
+  }
+
+  form .btn-register {
+    background-color: #80d4ff !important;
   }
 
   .login-div {
