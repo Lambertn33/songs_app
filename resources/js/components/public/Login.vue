@@ -6,16 +6,23 @@
           <h2>{{ loginTitle }}</h2>
           <h5>{{ loginSubtitle }}</h5>
         </div>
-        <form>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
+        <form v-on:submit.prevent="handleLogin">
+          <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert"/>
+
+          <the-input
+           inputLabel="Email"
+           inputType="email"
+           :inputValue="loginData.email" 
+           @changeValue="newValue => loginData.email = newValue"
+          />
+
+          <the-input
+           inputLabel="Password"
+           inputType="password"
+           :inputValue="loginData.password" 
+           @changeValue="newValue => loginData.password = newValue"
+          />
+          <button type="submit" :class="renderBtnClasses">{{ renderBtnText }}</button>
         </form>
       </div>
     </div>
@@ -27,13 +34,73 @@
     data() {
       return {
         loginTitle: 'Welcome To movies App',
-        loginSubtitle: 'Login to your account'
+        loginSubtitle: 'Login to your account',
+        isSubmitting: false,
+        hasAlert: false,
+        alertMessage: '',
+        alertType: '',
+        loginData: {
+          email: '',
+          password: ''
+        }
+      }
+    },
+
+    methods: {
+      hideModal() {
+        this.hasAlert = false;
+        this.alertMessage = '';
+        this.alertType = '';
+      },
+
+      showModal(alertType, alertMessage) {
+        this.isSubmitting = false;
+        this.hasAlert = true;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
+        setTimeout(() => {
+          this.hideModal();
+        }, 4000);
+      },
+
+      async handleLogin() {
+        let alertMessage = '';
+        let alertType = '';
+        try {
+          this.isSubmitting = true;
+          let response = await this.$store.dispatch('authStore/login', this.loginData);
+          if (response.status == 200) {
+            this.loginData.email = '';
+            this.loginData.password = '';
+            window.location.href= '/my-albums';
+          }
+        } catch (error) {
+          alertType = 'error';
+          alertMessage = error.response.data.message;
+          this.showModal(alertType, alertMessage);
+          return;
+        }
+      }
+    },
+
+    computed: {
+      renderBtnText() {
+        return this.isSubmitting ? 
+          'Please wait......' :
+          'Login'
+      },
+      renderBtnClasses() {
+        let initialClasses = 'btn btn-primary'
+        let classes = this.isSubmitting ? 
+          `${initialClasses} btn-login` :
+          initialClasses;
+        return classes;
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
   form {
     border: 0.0625rem solid #000;
     padding: 1.5rem;
@@ -43,6 +110,10 @@
 
   form label {
     font-weight: 700;
+  }
+
+  form .btn-login {
+    background-color: #80d4ff !important;
   }
 
   .login-div {

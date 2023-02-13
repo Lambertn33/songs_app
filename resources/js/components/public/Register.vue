@@ -81,10 +81,10 @@
       },
 
       async handleRegister() {
+        let alertMessage = '';
+        let alertType = '';
         try {
           this.isSubmitting = true;
-          let alertMessage = '';
-          let alertType = '';
           if (this.user.password !== this.user.passwordConfirm) {
             alertType = 'error';
             alertMessage = 'password confirmation does not match';
@@ -102,8 +102,8 @@
             this.showModal(alertType, alertMessage);
           }
         } catch (error) {
-          const alertType = 'error';
-          const alertMessage = error.response.data.message;
+          alertType = 'error';
+          alertMessage = error.response.data.message;
           this.showModal(alertType, alertMessage);
           return;
         }
@@ -127,7 +127,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   form {
     border: 0.0625rem solid #000;
     padding: 1.5rem;

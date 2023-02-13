@@ -10,6 +10,8 @@ import LoginView from './components/public/Login.vue';
 
 import RegisterView from './components/public/Register.vue';
 
+import MyAlbumsView from './components/private/albums/MyAlbums.vue';
+
 import TheNavbar from './components/nav/TheNavbar.vue';
 
 import TheAlert from './components/reusable/Alert/TheAlert.vue';
@@ -24,13 +26,21 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 
 const app = createApp(App);
 
+const checkAuth = () => {
+  const user = store.state.authStore.user;
+  const isLoggedIn = store.state.authStore.status.loggedIn;
+
+  if (!user || !isLoggedIn) return { path: '/'};
+}
+
 const router = createRouter({ 
   history: createWebHistory(),
   routes: [
     { path: '/', component: LoginView },
     { path: '/register', component: RegisterView },
+    { path: '/my-albums', component: MyAlbumsView, beforeEnter: checkAuth },
   ]
-})
+});
 
 app.component('the-navbar', TheNavbar);
 
