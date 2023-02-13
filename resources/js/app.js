@@ -12,6 +12,8 @@ import RegisterView from './components/public/Register.vue';
 
 import MyAlbumsView from './components/private/albums/MyAlbums.vue';
 
+import AllSongs from './components/private/songs/AllSongs.vue';
+
 import TheNavbar from './components/nav/TheNavbar.vue';
 
 import TheAlert from './components/reusable/Alert/TheAlert.vue';
@@ -43,6 +45,7 @@ const router = createRouter({
     { path: '/', component: LoginView },
     { path: '/register', component: RegisterView },
     { path: '/my-albums', component: MyAlbumsView, beforeEnter: checkAuth },
+    { path: '/all-songs', component: AllSongs, beforeEnter: checkAuth },
     { path: '/:pathMatch(.*)*', component: NotFound }
   ]
 });

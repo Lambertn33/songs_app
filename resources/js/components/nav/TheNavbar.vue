@@ -49,7 +49,7 @@
           },
           {
             name: 'Songs',
-            href: '/my-albums'
+            href: '/all-songs'
           },
           {
             name: 'Genres',

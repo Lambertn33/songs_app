@@ -13,9 +13,7 @@
          </div>          
        </div>
        <div v-else class="row gx-5">
-        <div class="alert alert-danger" role="alert">
-          <b class="tet-center">You have no albums yet... please create one</b>
-        </div>
+          <the-alert :hasAlert=true alertType="error" alertMessage="You have no albums yet... please create one"/>
        </div>
        </div>
     </div>

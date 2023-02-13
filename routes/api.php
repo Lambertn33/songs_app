@@ -23,10 +23,14 @@ Route::controller(AuthController::class)->group(function() {
   Route::post('logout', 'logout');
 });
 
+Route::get('/songs', [SongsController::class, 'getAllSongs']);
 Route::prefix('albums')->group(function() {
   //Songs
   Route::controller(SongsController::class)->group(function() {
-    Route::get('/getAllGenres', 'getAllGenres');
+    Route::prefix('genres')->group(function() {
+      Route::get('/', 'getAllGenres');
+      Route::get('/{genreId}', 'getSongsByGenre');
+    });
     Route::prefix('/{albumId}')->group(function() {
       Route::prefix('songs')->group(function() {
         Route::get('/', 'getMyAlbumSongs');

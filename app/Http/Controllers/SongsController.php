@@ -24,6 +24,25 @@ class SongsController extends Controller
     });
   }
 
+  public function getAllSongs()
+  {
+    $filteredSongs = [];
+    $allSongs = Song::with('album')->with('genre')->get();
+    foreach ($allSongs as $song) {
+      $filteredSongs[] = [
+        'title' => $song->title,
+        'length' => $song->length,
+        'album' => $song->album->title,
+        'genre' => $song->genre->name
+      ];
+    }
+    return response()->json([
+      'status' => 'success',
+      'message' => 'all songs',
+      'songs' => $filteredSongs
+    ], 200);
+  }
+
   public function getMyAlbumSongs($albumId)
   {
     $songs = [];
@@ -57,7 +76,33 @@ class SongsController extends Controller
     return response()->json([
       'status' => 'success',
       'message' => 'all genres',
-      'songs' => $allGenres
+      'genres' => $allGenres
+    ], 200);
+  }
+
+  public function getSongsByGenre($genreId)
+  {
+    $genre = Genre::with('songs')->find($genreId);
+    $genreSongs = [];
+    if (!$genre) {
+      return response()->json([
+        'status' => 'error',
+        'message' => 'genre not found',
+      ], 404);
+    }
+    $songs = $genre->songs()->get();
+    foreach ($songs as $song) {
+      $genreSongs[] = [
+        'id' => $song->id,
+        'album' => $song->album->title,
+        'length' => $song->length,
+        'title' => $song->title
+      ];
+    }
+    return response()->json([
+      'status' => 'success',
+      'message' => 'songs found in '.$genre->name. ' ',
+      'songs' => $genreSongs
     ], 200);
   }
 
