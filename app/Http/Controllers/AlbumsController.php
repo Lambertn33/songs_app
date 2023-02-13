@@ -38,14 +38,24 @@ class AlbumsController extends Controller
   {
     try {
       $authenticatedUser = $this->authenticatedUser;
+      $title = $request->title;
       $description = $request->description;
       $release_date = $request->release_date;
       $image = $request->file('image');
 
-      if (!$description || !$release_date || !$image) {
+      if (!$title || !$description || !$release_date || !$image) {
         return response()->json([
           'status' => 'error',
           'message' => 'please fill all fields and upload the image',
+        ], 400);
+      }
+
+      $checkTitle = Album::where('user_id', $authenticatedUser->id)
+        ->where('title', $title);
+      if ($checkTitle->exists()) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'you already have an album entitled '.$title.'.. please get another title ',
         ], 400);
       }
       
@@ -57,6 +67,7 @@ class AlbumsController extends Controller
       $newAlbum = [
         'id' => Str::uuid()->toString(),
         'user_id'=> $authenticatedUser->id,
+        'title' => $title,
         'description' => $description,
         'release_date' => $release_date,
         'image' => $imagePathInDb,

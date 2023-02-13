@@ -11,7 +11,7 @@ class Album extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id', 'release_date', 'description', 'image', 'user_id'
+        'id','title', 'release_date', 'description', 'image', 'user_id'
     ];
 
     protected $casts = [
