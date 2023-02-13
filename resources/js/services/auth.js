@@ -20,7 +20,7 @@ class AuthService {
 
   userLogout() {
     let token = localStorage.getItem('token');
-    return axios.post(`${endpointUrl}/logout`, {
+    return axios.post(`${endpointUrl}/logout`, null, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
