@@ -41,6 +41,7 @@ const initialState = user
       logout({ commit }) {
         return AuthService.userLogout().then(
           data => {
+            localStorage.removeItem('token');
             commit('logoutSuccess');
           },
           error => {
@@ -67,7 +68,6 @@ const initialState = user
       logoutSuccess(state) {
         state.status.loggedIn = false;
         state.user = null;
-        localStorage.removeItem('token');
       },
       registerSuccess(state) {
         state.status.loggedIn = false;

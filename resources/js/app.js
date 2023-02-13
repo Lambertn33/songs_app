@@ -16,7 +16,9 @@ import TheNavbar from './components/nav/TheNavbar.vue';
 
 import TheAlert from './components/reusable/Alert/TheAlert.vue';
 
-import TheInput from './components/reusable/Form/TheInput.vue'
+import TheInput from './components/reusable/Form/TheInput.vue';
+
+import NotFound from './components/public/NotFound.vue';
 
 import store  from './store';
 
@@ -37,8 +39,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: LoginView },
-    { path: '/register', component: RegisterView },
+    { path: '/register', component: RegisterView, beforeEnter: checkAuth },
     { path: '/my-albums', component: MyAlbumsView, beforeEnter: checkAuth },
+    { path: '/:pathMatch(.*)*', component: NotFound }
   ]
 });
 
