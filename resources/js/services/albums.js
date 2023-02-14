@@ -28,6 +28,13 @@ class AlbumsService {
 
    return axios.post(`${endpointUrl}/albums`, newAlbumObject, {headers});
   }
+
+  deleteAlbum(albumId) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+     };  
+     return axios.delete(`${endpointUrl}/albums/${albumId}`, {headers});
+  }
 }
 
 export default new AlbumsService();

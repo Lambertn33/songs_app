@@ -6,8 +6,8 @@
       <p class="card-text">{{ album.description }}</p>
       <p class="card-text">Released on {{ album.release_date }}</p>
       <div class="card-buttons">
-        <a href="#" class="btn btn-primary">View Songs</a>
-        <a href="#" class="btn btn-primary">Add New Song</a>
+        <a href="#" class="btn btn-info">View Songs</a>
+        <button class="btn btn-danger" @click="$emit('deleteAlbum', album.id)">Delete Album</button>
       </div>
     </div>
   </div>
@@ -17,7 +17,8 @@
   export default {
     props: {
       album: Object
-    }
+    },
+    emits: ['deleteAlbum'],
   }
 </script>
 

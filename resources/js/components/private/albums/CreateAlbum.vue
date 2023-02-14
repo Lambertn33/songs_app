@@ -83,6 +83,7 @@ import TextArea from '../../reusable/Form/TextArea.vue';
 
       onFileChange(e) {
         this.newAlbum.image = e.target.files[0];
+        console.log(e.target.files[0]);
       },
 
       async handleCreateNewAlbum() {

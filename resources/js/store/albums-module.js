@@ -8,7 +8,7 @@ export const albumsStore = {
   state: initialState,
 
   actions: {
-    fetchMyAlbums({ commit }) {
+    fetchMyAlbums() {
       return AlbumsService.getMyAlbums().then(
         data => {
           return Promise.resolve(data);
@@ -19,7 +19,7 @@ export const albumsStore = {
       );
     },
 
-    createNewAlbum({ commit }, newAlbum) {
+    createNewAlbum({commit}, newAlbum) {
       return AlbumsService.createNewAlbum(newAlbum).then(
         data => {
           return Promise.resolve(data);
@@ -28,8 +28,17 @@ export const albumsStore = {
           return Promise.reject(error);
         }
       );
+    },
+
+    deleteAlbum({ commit }, albumId) {
+      return AlbumsService.deleteAlbum(albumId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
     }
-  }
-
-
+  },
 }

@@ -7,7 +7,7 @@
       <div v-else>
         <div class="row" v-if="isAlbumsCountable">     
          <div class="col-md-3" v-for="album in myAlbums" :key="album.id">
-            <album-card :album="album"/>
+            <album-card :album="album" @deleteAlbum="deleteAlbum"/>
          </div>          
        </div>
        <div v-else class="row gx-5">
@@ -26,6 +26,7 @@
     data() {
       return {
         isFetching: false,
+        isDeleting: false,
         myAlbums: []
       }
     },
@@ -36,6 +37,21 @@
         const { albums } = response.data;
         this.myAlbums = albums;
         this.isFetching = false;
+      },
+
+      async deleteAlbum(albumId) {
+        try {
+          this.isDeleting = true;
+          const response = await this.$store.dispatch('deleteAlbum', [albumId]);
+          if (response.data.status == 'success') {
+            this.myAlbums = this.myAlbums.filter((album) => {
+              return album.id !== albumId
+            });
+          }
+          this.isDeleting = false;
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
 
