@@ -53,7 +53,7 @@
           },
           {
             name: 'Genres',
-            href: '/my-albums'
+            href: '/all-genres'
           },
         ],
       }

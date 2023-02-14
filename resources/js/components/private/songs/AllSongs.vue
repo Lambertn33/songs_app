@@ -17,11 +17,11 @@
               </li>
             </ul> 
           </div>    
-       </div>
-       <div v-else class="row gx-5">
+        </div>
+        <div v-else class="row gx-5">
           <the-alert :hasAlert=true alertType="error" alertMessage="There is no song now..."/>
-       </div>
-       </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
