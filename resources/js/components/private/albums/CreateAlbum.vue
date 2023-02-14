@@ -44,9 +44,8 @@
 </template>
 
 <script>
-  import TextArea from '../../reusable/Form/TextArea.vue';
+import TextArea from '../../reusable/Form/TextArea.vue';
   import AlbumHeader from './AlbumHeader.vue';
-
   export default {
     components: { AlbumHeader, TextArea },
 
@@ -84,7 +83,6 @@
 
       onFileChange(e) {
         this.newAlbum.image = e.target.files[0];
-        console.log(e.target.files[0]);
       },
 
       async handleCreateNewAlbum() {

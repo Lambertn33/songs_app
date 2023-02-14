@@ -50,7 +50,7 @@
         try {
           this.isDeleting = true;
           const response = await this.$store.dispatch('deleteAlbum', [albumId]);
-          const { status, message } = response.data
+          const { status, message } = response.data;
           if (status == 'success') {
             this.isModalVisible = true;
             this.deletingMessage = message
