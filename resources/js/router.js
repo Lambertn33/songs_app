@@ -6,6 +6,8 @@ import RegisterView from './components/public/Register.vue';
 
 import MyAlbumsView from './components/private/albums/MyAlbums.vue';
 
+import CreateAlbum from './components/private/albums/CreateAlbum.vue';
+
 import AllGenres from './components/private/genres/AllGenres.vue';
 
 import AllSongs from './components/private/songs/AllSongs.vue';
@@ -26,7 +28,10 @@ const router = createRouter({
   routes: [
     { path: '/', component: LoginView },
     { path: '/register', component: RegisterView },
-    { path: '/my-albums', component: MyAlbumsView, beforeEnter: checkAuth },
+    { path: '/my-albums', beforeEnter: checkAuth, children: [
+      { path: '', component:MyAlbumsView },
+      { path: 'create', component: CreateAlbum },
+    ] },
     { path: '/all-songs', component: AllSongs, beforeEnter: checkAuth },
     { path: '/all-genres', component: AllGenres, beforeEnter: checkAuth },
     { path: '/:pathMatch(.*)*', component: NotFound }

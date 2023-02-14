@@ -12,6 +12,22 @@ class AlbumsService {
       }
     });
   }
+
+  createNewAlbum(newAlbum) {
+   const newAlbumObject = {
+    title: newAlbum.title,
+    description: newAlbum.description,
+    release_date: newAlbum.release_date,
+    image: newAlbum.image
+   };
+
+   const headers = {
+    'Authorization': `Bearer ${token}`,
+    'content-type': 'multipart/form-data'
+   };
+
+   return axios.post(`${endpointUrl}/albums`, newAlbumObject, {headers});
+  }
 }
 
 export default new AlbumsService();
