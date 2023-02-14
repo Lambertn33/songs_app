@@ -44,8 +44,9 @@
 </template>
 
 <script>
-import TextArea from '../../reusable/Form/TextArea.vue';
+  import TextArea from '../../reusable/Form/TextArea.vue';
   import AlbumHeader from './AlbumHeader.vue';
+
   export default {
     components: { AlbumHeader, TextArea },
 
@@ -102,7 +103,7 @@ import TextArea from '../../reusable/Form/TextArea.vue';
             this.showModal(alertType, alertMessage);
             setTimeout(()=>{
               window.location.href= '/my-albums';
-            }, 3000);
+            }, 1000);
           }
         } catch (error) {
           alertType = 'error';

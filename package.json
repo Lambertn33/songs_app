@@ -15,6 +15,7 @@
         "@vitejs/plugin-vue": "^4.0.0",
         "bootstrap": "^5.2.3",
         "jquery": "^3.6.3",
+        "usemodal-vue3": "^0.3.7",
         "vue": "^3.2.36",
         "vue-jwt-decode": "^0.1.0",
         "vue-loader": "^17.0.1",

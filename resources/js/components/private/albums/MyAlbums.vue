@@ -16,17 +16,24 @@
        </div>
     </div>
   </div>
+  <Modal v-model:visible="isModalVisible" title="Success!">
+    <p><b>{{ deletingMessage }}</b></p>
+  </Modal>
 </template>
 
 <script>
   import AlbumCard from './AlbumCard.vue';
   import AlbumHeader from './AlbumHeader.vue';
+  import { Modal } from 'usemodal-vue3';
+
   export default {
-    components: { AlbumCard, AlbumHeader },
+    components: { AlbumCard, AlbumHeader, Modal },
     data() {
       return {
         isFetching: false,
         isDeleting: false,
+        isModalVisible: false,
+        deletingMessage: '',
         myAlbums: []
       }
     },
@@ -43,7 +50,10 @@
         try {
           this.isDeleting = true;
           const response = await this.$store.dispatch('deleteAlbum', [albumId]);
-          if (response.data.status == 'success') {
+          const { status, message } = response.data
+          if (status == 'success') {
+            this.isModalVisible = true;
+            this.deletingMessage = message
             this.myAlbums = this.myAlbums.filter((album) => {
               return album.id !== albumId
             });
