@@ -29,6 +29,13 @@ class AlbumsService {
    return axios.post(`${endpointUrl}/albums`, newAlbumObject, {headers});
   }
 
+  getSingleAlbum(albumId) {
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+     };  
+     return axios.get(`${endpointUrl}/albums/${albumId}`, {headers});
+  }
+
   deleteAlbum(albumId) {
     const headers = {
       'Authorization': `Bearer ${token}`,

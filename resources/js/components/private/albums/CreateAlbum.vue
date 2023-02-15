@@ -13,7 +13,7 @@
           />
 
           <the-input
-           inputLabel="Album title"
+           inputLabel="Album released date"
            inputType="date"
            :inputValue="newAlbum.release_date" 
            @changeValue="newValue => newAlbum.release_date = newValue"
@@ -44,10 +44,9 @@
 </template>
 
 <script>
-import TextArea from '../../reusable/Form/TextArea.vue';
   import AlbumHeader from './AlbumHeader.vue';
   export default {
-    components: { AlbumHeader, TextArea },
+    components: { AlbumHeader },
 
     data() {
       return {

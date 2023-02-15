@@ -7,7 +7,7 @@
       <div v-else>
         <div class="row" v-if="isAlbumsCountable">     
          <div class="col-md-3" v-for="album in myAlbums" :key="album.id">
-            <album-card :album="album" @deleteAlbum="deleteAlbum"/>
+            <album-card :renderBtnObjects="{renderDeleteClasses, renderDeleteText}" :album="album" @deleteAlbum="deleteAlbum"/>
          </div>          
        </div>
        <div v-else class="row gx-5">
@@ -68,6 +68,18 @@
     computed: {
       isAlbumsCountable() {
         return this.myAlbums.length > 0 ? true : false
+      },
+      renderDeleteText() {
+        return this.isDeleting ? 
+          'Please wait......' :
+          'Delete Album'
+      },
+      renderDeleteClasses() {
+        let initialClasses = 'btn btn-danger'
+        let classes = this.isDeleting ? 
+          `${initialClasses} btn-delete` :
+          initialClasses;
+        return classes;
       }
     },
     mounted() {
@@ -75,3 +87,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .btn-delete {
+    background-color: #ffb3b3 !important;
+  }
+</style>

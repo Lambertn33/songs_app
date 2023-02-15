@@ -105,7 +105,7 @@ class AlbumsController extends Controller
 
   public function getSingleAlbum($id)
   {
-    $albumToView = Album::find($id);
+    $albumToView = Album::find($id, ['id', 'title', 'description', 'release_date']);
     if (!$albumToView) {
       return response()->json([
         'status' => 'error',

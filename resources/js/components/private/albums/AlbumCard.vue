@@ -7,7 +7,12 @@
       <p class="card-text">Released on {{ album.release_date }}</p>
       <div class="card-buttons">
         <a href="#" class="btn btn-info">View Songs</a>
-        <button class="btn btn-danger" @click="$emit('deleteAlbum', album.id)">Delete Album</button>
+        <router-link :to="renderEditLink">
+          <button class="btn btn-warning btn-edit">
+            Edit Album
+          </button>
+          </router-link>
+        <button :class="renderBtnObjects.renderDeleteClasses" @click="$emit('deleteAlbum', album.id)">{{ renderBtnObjects.renderDeleteText }}</button>
       </div>
     </div>
   </div>
@@ -16,13 +21,23 @@
 <script>
   export default {
     props: {
-      album: Object
+      album: Object,
+      renderBtnObjects: Object
     },
     emits: ['deleteAlbum'],
+    computed: {
+      renderEditLink() {
+        return `/my-albums/${this.album.id}/edit`;
+      }
+    }
   }
 </script>
 
 <style scoped>
+
+  .btn-edit {
+    width: 100%;
+  }
   .card-text {
     font-weight: 600;
   }

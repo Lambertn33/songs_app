@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Album extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'id','title', 'release_date', 'description', 'image', 'user_id'
     ];
@@ -18,8 +19,6 @@ class Album extends Model
         'id' => 'string', 
         'user_id' => 'string'
     ];
-
-    protected $appends = ['image'];
 
     /**
      * Get the user that owns the Album

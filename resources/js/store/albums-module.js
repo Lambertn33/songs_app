@@ -39,6 +39,17 @@ export const albumsStore = {
           return Promise.reject(error);
         }
       )
+    },
+
+    getSingleAlbum({ commit }, albumId) {
+      return AlbumsService.getSingleAlbum(albumId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      )
     }
   },
 }
