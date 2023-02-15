@@ -4,13 +4,13 @@ const endpointUrl = "http://localhost:8000/api";
 
 const token = localStorage.getItem('token');
 
+let headers = {
+  'Authorization': `Bearer ${token}`,
+};
+
 class SongsService {
   getAllSongs() {
-    return axios.get(`${endpointUrl}/songs`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    return axios.get(`${endpointUrl}/songs`, { headers });
   }
 }
 

@@ -4,13 +4,13 @@ const endpointUrl = "http://localhost:8000/api";
 
 const token = localStorage.getItem('token');
 
+let headers = {
+  'Authorization': `Bearer ${token}`,
+}; 
+
 class AlbumsService {
   getMyAlbums() {
-    return axios.get(`${endpointUrl}/albums`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    return axios.get(`${endpointUrl}/albums`, { headers });
   }
 
   createNewAlbum(newAlbum) {
@@ -21,26 +21,21 @@ class AlbumsService {
     image: newAlbum.image
    };
 
-   const headers = {
-    'Authorization': `Bearer ${token}`,
-    'content-type': 'multipart/form-data'
-   };
+   headers['content-type'] = 'multipart/form-data';
 
-   return axios.post(`${endpointUrl}/albums`, newAlbumObject, {headers});
+   return axios.post(`${endpointUrl}/albums`, newAlbumObject, { headers });
   }
 
-  getSingleAlbum(albumId) {
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-     };  
-     return axios.get(`${endpointUrl}/albums/${albumId}`, {headers});
+  getSingleAlbum(albumId) { 
+     return axios.get(`${endpointUrl}/albums/${albumId}`, { headers });
   }
 
-  deleteAlbum(albumId) {
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-     };  
-     return axios.delete(`${endpointUrl}/albums/${albumId}`, {headers});
+  editAlbum(editedAlbum, albumId) {
+
+  }
+
+  deleteAlbum(albumId) {  
+    return axios.delete(`${endpointUrl}/albums/${albumId}`, { headers });
   }
 }
 
