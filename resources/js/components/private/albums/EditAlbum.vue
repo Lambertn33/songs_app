@@ -3,9 +3,9 @@
     <div class="col-md-6 offset-md-3 py-4">
       <the-spinner v-if="isFetching" />
       <div v-else>
-        <album-header :headerTitle="renderHeaderTitle"/>
+        <album-header :headerTitle="renderHeaderTitle" :headerType="headerType" />
           <form v-on:submit.prevent="handleEditAlbum">
-              <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert"/>
+              <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert" />
 
               <the-input
               inputLabel="Album title"
@@ -47,6 +47,7 @@
         hasAlert: false,
         alertMessage: '',
         alertType: '',
+        headerType: 'Update Album',
       }
     },
     methods: {

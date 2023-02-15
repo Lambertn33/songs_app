@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12 py-4">
-      <album-header headerTitle="My Albums"/>
+      <album-header headerTitle="My Albums" :headerType="headerType"/>
       <router-view></router-view>
       <the-spinner v-if="isFetching" />
       <div v-else>
@@ -31,6 +31,7 @@
     data() {
       return {
         isFetching: false,
+        headerType: "Create/ Read Albums",
         isDeleting: false,
         isModalVisible: false,
         deletingMessage: '',
