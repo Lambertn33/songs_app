@@ -2,8 +2,8 @@
   <div class="header-container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" v-for="link in links" :key="link.to">
-          <router-link :to="link.to">{{ link.label }}</router-link>
+        <li class="breadcrumb-item" v-for="link in albumLinks" :key="link.to">
+          <router-link :to="link.to" active-class="active">{{ link.label }}</router-link>
         </li>
       </ol>
     </nav>
@@ -18,7 +18,7 @@
     },
     data() {
       return {
-        links: [
+        albumLinks: [
           {
             to: "/my-albums",
             label: "My Albums"
@@ -26,9 +26,9 @@
           {
             to: "/my-albums/create",
             label: "Create New"
-          },
-          
-        ]
+          },          
+        ],
+
       }
     }
   }
@@ -52,5 +52,9 @@
   }
   .breadcrumb-item a {
     text-decoration: none;
+  }
+
+  .router-link-exact-active {
+    color: black;
   }
 </style>

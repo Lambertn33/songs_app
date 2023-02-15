@@ -6,9 +6,13 @@
       <p class="card-text">{{ album.description }}</p>
       <p class="card-text">Released on {{ album.release_date }}</p>
       <div class="card-buttons">
-        <a href="#" class="btn btn-info">View Songs</a>
+        <router-link :to="renderAlbumSongs">
+          <button class="btn btn-info btn-flat">
+            View Songs
+          </button>
+        </router-link>
         <router-link :to="renderEditLink">
-          <button class="btn btn-warning btn-edit">
+          <button class="btn btn-warning btn-flat">
             Edit Album
           </button>
           </router-link>
@@ -28,6 +32,9 @@
     computed: {
       renderEditLink() {
         return `/my-albums/${this.album.id}/edit`;
+      },
+      renderAlbumSongs() {
+        return `/my-albums/${this.album.id}/songs`;
       }
     }
   }
@@ -35,7 +42,7 @@
 
 <style scoped>
 
-  .btn-edit {
+  .btn-flat {
     width: 100%;
   }
   .card-text {

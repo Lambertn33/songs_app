@@ -27,7 +27,11 @@ class AlbumsService {
   }
 
   getAlbum(albumId) { 
-     return axios.get(`${endpointUrl}/${albumId}`, { headers });
+    return axios.get(`${endpointUrl}/${albumId}`, { headers });
+  }
+
+  getAlbumSongs(albumId) {
+    return axios.get(`${endpointUrl}/${albumId}/songs`, { headers });
   }
 
   editAlbum(editedAlbum, albumId) {

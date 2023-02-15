@@ -10,6 +10,8 @@ import CreateAlbum from './components/private/albums/CreateAlbum.vue';
 
 import EditAlbum from './components/private/albums/EditAlbum.vue';
 
+import AlbumSongs from './components/private/albums/albumSongs/AlbumSongs.vue';
+
 import AllGenres from './components/private/genres/AllGenres.vue';
 
 import AllSongs from './components/private/songs/AllSongs.vue';
@@ -33,12 +35,16 @@ const router = createRouter({
     { path: '/my-albums', beforeEnter: checkAuth, children: [
       { path: '', component:MyAlbumsView },
       { path: 'create', component: CreateAlbum },
-      { path: ':id/edit', component: EditAlbum }
+      { path: ':id', children: [
+        { path: 'edit', component: EditAlbum, },
+        { path: 'songs', component: AlbumSongs }
+      ] }
     ] },
     { path: '/all-songs', component: AllSongs, beforeEnter: checkAuth },
     { path: '/all-genres', component: AllGenres, beforeEnter: checkAuth },
     { path: '/:pathMatch(.*)*', component: NotFound }
-  ]
+  ],
+  linkActiveClass: 'active'
 });
 
 export default router;

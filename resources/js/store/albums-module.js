@@ -52,6 +52,17 @@ export const albumsStore = {
       );
     },
 
+    getAlbumSongs({ commit }, albumId) {
+      return AlbumsService.getAlbumSongs(albumId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+
     editAlbum({ commit }, {editedAlbum, albumId}) {
       return AlbumsService.editAlbum(editedAlbum, albumId).then(
         data => {

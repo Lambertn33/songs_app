@@ -79,7 +79,6 @@
         let alertType = '';
         try {
           this.isSubmitting = true;
-          console.log('album', this.singleAlbum.id);
           let response = await this.$store.dispatch('editAlbum', {
             'editedAlbum': this.singleAlbum, 'albumId': this.singleAlbum.id}
           );
