@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpointUrl = "http://localhost:8000/api";
+const endpointUrl = "http://localhost:8000/api/albums";
 
 const token = localStorage.getItem('token');
 
@@ -10,10 +10,10 @@ let headers = {
 
 class AlbumsService {
   getMyAlbums() {
-    return axios.get(`${endpointUrl}/albums`, { headers });
+    return axios.get(`${endpointUrl}`, { headers });
   }
 
-  createNewAlbum(newAlbum) {
+  createAlbum(newAlbum) {
    const newAlbumObject = {
     title: newAlbum.title,
     description: newAlbum.description,
@@ -23,19 +23,24 @@ class AlbumsService {
 
    headers['content-type'] = 'multipart/form-data';
 
-   return axios.post(`${endpointUrl}/albums`, newAlbumObject, { headers });
+   return axios.post(`${endpointUrl}`, newAlbumObject, { headers });
   }
 
-  getSingleAlbum(albumId) { 
-     return axios.get(`${endpointUrl}/albums/${albumId}`, { headers });
+  getAlbum(albumId) { 
+     return axios.get(`${endpointUrl}/${albumId}`, { headers });
   }
 
   editAlbum(editedAlbum, albumId) {
-
+    const editedAlbumObject = {
+      title: editedAlbum.title,
+      description: editedAlbum.description,
+      release_date: editedAlbum.release_date,
+     };
+    return axios.put(`${endpointUrl}/${albumId}`, editedAlbumObject, { headers });
   }
 
   deleteAlbum(albumId) {  
-    return axios.delete(`${endpointUrl}/albums/${albumId}`, { headers });
+    return axios.delete(`${endpointUrl}/${albumId}`, { headers });
   }
 }
 

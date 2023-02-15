@@ -89,7 +89,7 @@
         let alertType = '';
         try {
           this.isSubmitting = true;
-          let response = await this.$store.dispatch('createNewAlbum', this.newAlbum);
+          let response = await this.$store.dispatch('createAlbum', this.newAlbum);
           if (response.data.status == 'success') {
             alertType = response.data.status;
             alertMessage = response.data.message;

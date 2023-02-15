@@ -123,6 +123,7 @@ class AlbumsController extends Controller
   {
     try {
       DB::beginTransaction();
+      $title = $request->title;
       $description = $request->description;
       $release_date = $request->release_date;
       $albumToUpdate = Album::find($id);
@@ -133,9 +134,17 @@ class AlbumsController extends Controller
         ], 404);
       }
 
+      if (!$title || !$description || !$release_date) {
+        return response()->json([
+          'status' => 'error',
+          'message' => 'please fill all fields and upload the image',
+        ], 400);
+      }
+
       $albumToUpdate->update([
-        'description' => $description ? $description : $albumToUpdate->description,
-        'release_date' => $release_date ? $release_date : $albumToUpdate->release_date
+        'title' => $title,
+        'description' => $description,
+        'release_date' => $release_date
       ]);
 
       DB::commit();

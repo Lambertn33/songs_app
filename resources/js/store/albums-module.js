@@ -19,8 +19,8 @@ export const albumsStore = {
       );
     },
 
-    createNewAlbum({commit}, newAlbum) {
-      return AlbumsService.createNewAlbum(newAlbum).then(
+    createAlbum({commit}, newAlbum) {
+      return AlbumsService.createAlbum(newAlbum).then(
         data => {
           return Promise.resolve(data);
         },
@@ -38,18 +38,29 @@ export const albumsStore = {
         error => {
           return Promise.reject(error);
         }
-      )
+      );
     },
 
-    getSingleAlbum({ commit }, albumId) {
-      return AlbumsService.getSingleAlbum(albumId).then(
+    getAlbum({ commit }, albumId) {
+      return AlbumsService.getAlbum(albumId).then(
         data => {
           return Promise.resolve(data);
         },
         error => {
           return Promise.reject(error);
         }
-      )
+      );
+    },
+
+    editAlbum({ commit }, {editedAlbum, albumId}) {
+      return AlbumsService.editAlbum(editedAlbum, albumId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
-  },
+  }
 }
