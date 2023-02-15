@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import TheSpinner from '../../reusable/Spinner/TheSpinner.vue';
   import AlbumHeader from './AlbumHeader.vue';
   export default {
-    components: { AlbumHeader, TheSpinner },
+    components: { AlbumHeader },
     data() {
       return {
         isFetching: false,
         isSubmitting: false,
         singleAlbum: {},
+        albumTitle: '',
         hasAlert: false,
         alertMessage: '',
         alertType: '',
@@ -55,6 +55,7 @@ import TheSpinner from '../../reusable/Spinner/TheSpinner.vue';
         const response = await this.$store.dispatch('getSingleAlbum', [albumId]);
         const { album } = await response.data;
         this.singleAlbum = album;
+        this.albumTitle = album.title;
         this.isFetching = false;
       }
     },
@@ -64,7 +65,7 @@ import TheSpinner from '../../reusable/Spinner/TheSpinner.vue';
     },
     computed: {
       renderHeaderTitle() {
-        return `Edit Album Entitled ${this.singleAlbum.title}`;
+        return `Edit Album Entitled ${this.albumTitle}`;
       }
     }
   }
