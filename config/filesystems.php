@@ -46,7 +46,7 @@ return [
 
         'images'=>[
             'driver'=>'local',
-            'root' =>env('APP_STORAGE',storage_path('app').'/images')
+            'root' =>storage_path('app/public'). '/images',
         ],
 
         's3' => [

@@ -1,12 +1,10 @@
 <template>
   <div class="mb-3">
     <label class="form-label">{{ inputLabel }}</label>
-    <input
-      class="form-control" 
-     :type="inputType"
-     :value="inputValue"
-     @input="$emit('changeValue', $event.target.value)"
-    >
+    <textarea class="form-control" rows="3"
+      :value="inputValue"
+      @input="$emit('changeValue', $event.target.value)"
+    ></textarea>
   </div>
 </template>
 
@@ -14,7 +12,6 @@
   export default {
     props: {
       inputLabel: String,
-      inputType: String,
       inputValue: String,
     },
 

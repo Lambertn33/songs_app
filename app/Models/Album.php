@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Album extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
         'id','title', 'release_date', 'description', 'image', 'user_id'
     ];
@@ -37,5 +38,10 @@ class Album extends Model
     public function songs(): HasMany
     {
         return $this->hasMany(Song::class, 'album_id', 'id');
+    }
+
+    public function getAlbumImage()
+    {
+        return url('storage/images'. $this->image);
     }
 }
