@@ -97,7 +97,7 @@
             this.newAlbum.release_date = '';
             this.showModal(alertType, alertMessage);
             setTimeout(()=>{
-              window.location.href= '/my-albums';
+              this.$router.push('/my-albums');
             }, 1000);
           }
         } catch (error) {

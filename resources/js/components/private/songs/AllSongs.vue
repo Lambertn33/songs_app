@@ -1,5 +1,6 @@
 <template>
-  <div class="row">
+  <div class="allSongs">
+    <div class="row">
     <div class="col-md-12 py-4">
       <div class="header-container">
         <h2 class="text-center">All Songs</h2>
@@ -7,22 +8,25 @@
       <the-spinner v-if="isFetching" />
       <div v-else>
         <div class="row gx-5" v-if="isSongsCountable">     
-          <div class="col-md-6 offset-md-3">
-            <ul class="list-group">
-              <li class="list-group-item" v-for="song in allSongs" :key="song.id">
-                <p>Title: <span>{{ song.title }}</span></p>
-                <p>Album: <span>{{ song.album }}</span></p>
-                <p>Genre: <span>{{ song.genre }}</span></p>
-                <p>Length: <span>{{ renderSongLength(song) }}</span></p>
-              </li>
-            </ul> 
-          </div>    
+          <div class="col-md-4" v-for="song in allSongs" :key="song.id">
+            <the-card>
+            <template #card-image>
+                <img src="../../../assets/images/song.png" class="card-img-top">
+            </template>
+            <template #card-body>
+              <h3 class="card-title">{{ song.title }}</h3>
+              <p class="card-text">Album: <b>{{ song.album }}</b></p>
+              <p class="card-text">Duration: <b>{{ renderSongLength(song) }}</b></p>
+            </template>
+          </the-card>
+          </div>
         </div>
         <div v-else class="row gx-5">
           <the-alert :hasAlert=true alertType="error" alertMessage="There is no song now..."/>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -65,6 +69,7 @@
 </script>
 
 <style scoped>
+
   .list-group-item span {
     font-weight: 800;
   }

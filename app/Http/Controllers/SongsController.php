@@ -73,37 +73,19 @@ class SongsController extends Controller
 
   public function getAllGenres()
   {
-    $allGenres = Genre::select(['id', 'name'])->get();
-    return response()->json([
-      'status' => 'success',
-      'message' => 'all genres',
-      'genres' => $allGenres
-    ], 200);
-  }
-
-  public function getSongsByGenre($genreId)
-  {
-    $genre = Genre::with('songs')->find($genreId);
-    $genreSongs = [];
-    if (!$genre) {
-      return response()->json([
-        'status' => 'error',
-        'message' => 'genre not found',
-      ], 404);
-    }
-    $songs = $genre->songs()->get();
-    foreach ($songs as $song) {
-      $genreSongs[] = [
-        'id' => $song->id,
-        'album' => $song->album->title,
-        'length' => $song->length,
-        'title' => $song->title
+    $filteredGenres = [];
+    $allGenres = Genre::with('songs')->select(['id', 'name'])->get();
+    foreach ($allGenres as $genre) {
+      $filteredGenres[] = [
+        'id' => $genre->id,
+        'name' => $genre->name,
+        'songs' => $genre->songs()->select(['title', 'length'])->get()
       ];
     }
     return response()->json([
       'status' => 'success',
-      'message' => 'songs found in '.$genre->name. ' ',
-      'songs' => $genreSongs
+      'message' => 'all genres',
+      'genres' => $filteredGenres
     ], 200);
   }
 

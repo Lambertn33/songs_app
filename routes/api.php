@@ -29,7 +29,6 @@ Route::prefix('albums')->group(function() {
   Route::controller(SongsController::class)->group(function() {
     Route::prefix('genres')->group(function() {
       Route::get('/', 'getAllGenres');
-      Route::get('/{genreId}', 'getSongsByGenre');
     });
     Route::prefix('/{albumId}')->group(function() {
       Route::prefix('songs')->group(function() {
