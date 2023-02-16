@@ -55,6 +55,10 @@ class AlbumsService {
     };
     return axios.post(`${endpointUrl}/${albumId}/songs`, newSongObject, { headers });
   }
+
+  deleteAlbumSong(albumId, songId) {
+    return axios.delete(`${endpointUrl}/${albumId}/songs/${songId}`, { headers });
+  }
 }
 
 export default new AlbumsService();

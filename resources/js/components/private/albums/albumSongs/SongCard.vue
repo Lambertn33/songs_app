@@ -11,7 +11,7 @@
     <template #card-footer>
       <div class="card-footer">
         <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="Delete Album">
-          <span class=" card-icon icon-delete">
+          <span class=" card-icon icon-delete" @click="$emit('deleteSong', song.id)">
             <delete-icon />
           </span>
         </span>
@@ -21,12 +21,11 @@
   </the-card>
 </template>
 <script>
-  import ViewIcon from 'vue-material-design-icons/MusicNoteEighth.vue';
-  import EditIcon from 'vue-material-design-icons/Pencil.vue';
   import DeleteIcon from 'vue-material-design-icons/Delete.vue';
 
   export default {
-    components: { ViewIcon, EditIcon, DeleteIcon },
+    components: { DeleteIcon },
+    emits: ['deleteSong'],
     props: {
       song: Object
     },
@@ -37,7 +36,7 @@
         let secs = length % 60;
         let songLength = `${mins} minutes ${secs} seconds`;
         return songLength;
-      }
+      },
     }
   }
 </script>

@@ -7,7 +7,7 @@
       <div v-else>
         <div class="text-center">
           <div class="jumbotron">
-            <h3><b>{{ albumTitle }}</b></h3>  
+            <h4><b>{{ albumTitle }} - <span class="text text-danger">{{ albumSongs.length }} songs</span></b></h4>  
             <p>{{ albumDescription }}</p>  
             <button class="btn btn-primary" @click=" renderCreateNewSongPage">
               <plus-icon />
@@ -16,7 +16,7 @@
           </div>
           <div class="row pt-4" v-if="isSongsCountable">
             <div class="col-md-4" v-for="song in albumSongs" :key="song.id">
-              <song-card  :song="song"/>
+              <song-card  :song="song" @deleteSong="deleteSong"/>
             </div>
           </div>
           <div v-else class="row pt-5">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <Modal v-model:visible="isModalVisible" title="Success!">
-    <p><b>helll</b></p>
+    <p><b>{{ deletingMessage }}</b></p>
   </Modal>
 </template>
 
@@ -44,7 +44,9 @@ export default {
       albumTitle: '',
       albumDescription: '',
       isFetching: false,
-      isModalVisible: true,
+      isDeleting: false,
+      isModalVisible: false,
+      deletingMessage: '',
       headerType: "View Album Songs",
     }
   },
@@ -62,6 +64,27 @@ export default {
     renderCreateNewSongPage() {
       this.$store.dispatch('setAlbumTitle', [this.albumTitle]);
       this.$router.push(`/my-albums/${this.$route.params.id}/songs/create`);
+    },
+
+    async deleteSong(songId) {
+      try {
+        this.isDeleting = true;
+        const response = await this.$store.dispatch('deleteAlbumSong', {
+          'albumId': this.$route.params.id, 'songId': songId
+        });
+        const { status, message } = response.data;
+        if (status == 'success') {
+          this.isModalVisible = true;
+          this.deletingMessage = message;
+          this.albumSongs = this.albumSongs.filter((song) => {
+            return song.id !== songId
+          });
+        }
+        this.isDeleting = false;
+      } catch (error) {
+        this.deletingMessage = error.response.data.message;
+        this.isDeleting = true;
+      }
     }
   },
   mounted() {

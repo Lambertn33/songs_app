@@ -79,6 +79,17 @@ export const albumsStore = {
       );
     },
 
+    deleteAlbumSong({ commit }, { albumId, songId }) {
+      return AlbumsService.deleteAlbumSong(albumId, songId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },  
+
     editAlbum({ commit }, {editedAlbum, albumId}) {
       return AlbumsService.editAlbum(editedAlbum, albumId).then(
         data => {

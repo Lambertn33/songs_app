@@ -102,14 +102,13 @@ export default {
             this.newSong.albumId = '';
             this.showModal(alertType, alertMessage);
             setTimeout(()=>{
-              window.location.href= '/my-albums';
+              this.$router.push(`/my-albums/${this.$route.params.id}/songs/`);
             }, 1000);
           }
         } catch (error) {
           alertType = 'error';
           alertMessage = error.response.data.message;
           this.showModal(alertType, alertMessage);
-          console.log(error);
           return;
         }
     }
