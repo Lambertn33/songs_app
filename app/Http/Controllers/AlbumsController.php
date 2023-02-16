@@ -137,7 +137,7 @@ class AlbumsController extends Controller
       if (!$title || !$description || !$release_date) {
         return response()->json([
           'status' => 'error',
-          'message' => 'please fill all fields and upload the image',
+          'message' => 'please fill all fields',
         ], 400);
       }
 

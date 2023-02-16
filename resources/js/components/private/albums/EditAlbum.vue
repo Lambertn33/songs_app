@@ -26,7 +26,10 @@
                 @changeValue="newValue => singleAlbum.description = newValue"
               />
 
-              <button type="submit" class="btn btn-success">Update Album</button>
+              <button type="submit" :class="renderBtnClasses">
+                <edit-icon />
+                <span>{{ renderBtnText }}</span>
+              </button>
             </form>
           <router-view></router-view>
       </div>
@@ -36,8 +39,10 @@
 
 <script>
   import AlbumHeader from './AlbumHeader.vue';
+  import EditIcon from 'vue-material-design-icons/Pencil.vue';
+
   export default {
-    components: { AlbumHeader },
+    components: { AlbumHeader, EditIcon },
     data() {
       return {
         isFetching: false,
@@ -110,7 +115,25 @@
     computed: {
       renderHeaderTitle() {
         return `Edit Album Entitled ${this.albumTitle}`;
+      },
+      renderBtnText() {
+        return this.isSubmitting ? 
+          'Please wait......' :
+          'Update Album'
+      },
+      renderBtnClasses() {
+        let initialClasses = 'btn btn-success'
+        let classes = this.isSubmitting ? 
+          `${initialClasses} btn-update` :
+          initialClasses;
+        return classes;
       }
     }
   }
 </script>
+
+<style scoped>
+  .btn-update {
+    background:  #00e600 !important;
+  }
+</style>

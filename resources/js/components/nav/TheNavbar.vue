@@ -14,6 +14,7 @@
       </ul>
       <ul v-if="isAuthenticated" class="navbar-nav">
         <li class="nav-item dropdown">
+          <user-icon class="icon"/>
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ authenticatedUser.names }}
           </a>
@@ -33,8 +34,9 @@
   import AlbumIcon from 'vue-material-design-icons/Album.vue';
   import SongsIcon from 'vue-material-design-icons/MusicNoteEighth.vue';
   import GenresIcon from 'vue-material-design-icons/Tune.vue';
+  import UserIcon from 'vue-material-design-icons/Account.vue'
   export default {
-    components: { AccountPlus, LoginIcon, AlbumIcon, SongsIcon, GenresIcon },
+    components: { AccountPlus, LoginIcon, AlbumIcon, SongsIcon, GenresIcon, UserIcon },
     data() {
       return {
         isAuthenticated: false,

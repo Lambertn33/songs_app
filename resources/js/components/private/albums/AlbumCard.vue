@@ -7,17 +7,23 @@
       <p class="card-text">Released on {{ album.release_date }}</p>
       <div class="card-buttons">
         <router-link :to="renderAlbumSongs">
-          <span class=" card-icon icon-view">
-            <view-icon />
+          <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="View Album Songs">
+            <span class=" card-icon icon-view">
+              <view-icon />
+            </span>
           </span>
         </router-link>
         <router-link :to="renderEditLink">
-          <span class=" card-icon icon-edit">
-            <edit-icon />
+          <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="Edit Album">
+            <span class=" card-icon icon-edit">
+              <edit-icon />
+            </span>
           </span>
         </router-link>
-        <span class=" card-icon icon-delete"  @click="$emit('deleteAlbum', album.id)">
-          <delete-icon />
+        <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="Delete Album">
+          <span class=" card-icon icon-delete"  @click="$emit('deleteAlbum', album.id)">
+            <delete-icon />
+          </span>
         </span>
       </div>
     </div>
@@ -25,7 +31,7 @@
 </template>
 
 <script>
-  import ViewIcon from 'vue-material-design-icons/Eye.vue';
+  import ViewIcon from 'vue-material-design-icons/MusicNoteEighth.vue';
   import EditIcon from 'vue-material-design-icons/Pencil.vue';
   import DeleteIcon from 'vue-material-design-icons/Delete.vue';
 

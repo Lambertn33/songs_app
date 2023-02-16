@@ -65,7 +65,8 @@ class SongsController extends Controller
     }
     return response()->json([
       'status' => 'success',
-      'message' => 'songs for album described ' .$albumToView->description. ' ',
+      'album' => $albumToView->title,
+      'description' => $albumToView->description,
       'songs' => $songs
     ], 200);
   }
