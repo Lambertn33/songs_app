@@ -1,11 +1,15 @@
 <template>
-  <div class="card">
-    <img :src="album.image" class="card-img-top">
-    <div class="card-body">
+  <the-card>
+     <template #card-image>
+        <img :src="album.image" class="card-img-top">
+     </template>
+     <template #card-body>
       <h3 class="card-title">{{ album.title }}</h3>
       <p class="card-text">{{ album.description }}</p>
       <p class="card-text">Released on {{ album.release_date }}</p>
-      <div class="card-buttons">
+     </template>
+     <template #card-footer>
+      <div class="card-footer">
         <router-link :to="renderAlbumSongs">
           <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="View Album Songs">
             <span class=" card-icon icon-view">
@@ -26,8 +30,8 @@
           </span>
         </span>
       </div>
-    </div>
-  </div>
+     </template>
+  </the-card>
 </template>
 
 <script>
@@ -54,21 +58,6 @@
 </script>
 
 <style scoped>
-
-  .btn-flat {
-    width: 100%;
-  }
-  .card-text {
-    font-weight: 600;
-  }
-  .card-title {
-    font-weight: 800;
-  }
-
-  .card {
-    width: 18rem;
-  }
-
   .card-icon {
     color: #fff;
     padding: 0.125rem;
@@ -79,26 +68,18 @@
     transition: .01s;
     cursor: pointer;
   }
-
-  .card-buttons {
+  .card-footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 1rem;
   }
-
-  .card-img-top {
-    object-fit: cover;
-    width: 100%;
-  }
-
   .icon-view {
     background: #0dcaf0;
   }
-
   .icon-edit {
     background: #ffc107;
   }
-
   .icon-delete {
     background: #dc3545;
   }

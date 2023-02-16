@@ -7,7 +7,7 @@
       <div v-else>
         <div class="text-center">
           <div class="jumbotron">
-            <h3>{{ albumTitle }}</h3>  
+            <h3><b>{{ albumTitle }}</b></h3>  
             <p>{{ albumDescription }}</p>  
             <button class="btn btn-primary">
               Add New Song
@@ -15,18 +15,11 @@
           </div>
           <div class="row pt-4" v-if="isSongsCountable">
             <div class="col-md-4">
-              <div class="card" style="width: 18rem;">
-                <img src="../../../../assets/images/song.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
+              <song-card v-for="song in albumSongs" :key="song.id" :song="song"/>
             </div>
           </div>
-          <div v-else>
-            songs empty
+          <div v-else class="row pt-5">
+            <the-alert :hasAlert=true alertType="error" alertMessage="No songs available now...."/>
           </div>
         </div>
       </div>
@@ -36,8 +29,9 @@
 
 <script>
 import AlbumHeader from '../AlbumHeader.vue';
+import SongCard from './SongCard.vue';
   export default {
-    components: { AlbumHeader },
+    components: { AlbumHeader, SongCard },
     data() {
       return {
         albumSongs: [],
