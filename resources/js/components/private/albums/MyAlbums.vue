@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12 py-4">
-      <album-header headerTitle="My Albums" :headerType="headerType"/>
+      <the-header headerTitle="My Albums" :headerType="headerType"/>
       <router-view></router-view>
       <the-spinner v-if="isFetching" />
       <div v-else>
@@ -23,11 +23,10 @@
 
 <script>
   import AlbumCard from './AlbumCard.vue';
-  import AlbumHeader from './AlbumHeader.vue';
   import { Modal } from 'usemodal-vue3';
 
   export default {
-    components: { AlbumCard, AlbumHeader, Modal },
+    components: { AlbumCard, Modal },
     data() {
       return {
         isFetching: false,

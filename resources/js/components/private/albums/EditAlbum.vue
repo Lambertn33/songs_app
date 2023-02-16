@@ -3,7 +3,7 @@
     <div class="col-md-6 offset-md-3 py-4">
       <the-spinner v-if="isFetching" />
       <div v-else>
-        <album-header :headerTitle="renderHeaderTitle" :headerType="headerType" />
+        <the-header :headerTitle="renderHeaderTitle" :headerType="headerType" />
           <form v-on:submit.prevent="handleEditAlbum">
               <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert" />
 
@@ -38,11 +38,10 @@
 </template>
 
 <script>
-  import AlbumHeader from './AlbumHeader.vue';
   import EditIcon from 'vue-material-design-icons/Pencil.vue';
 
   export default {
-    components: { AlbumHeader, EditIcon },
+    components: { EditIcon },
     data() {
       return {
         isFetching: false,

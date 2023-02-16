@@ -8,15 +8,17 @@ import router from './router';
 
 import TheNavbar from './components/nav/TheNavbar.vue';
 
-import TheAlert from './components/reusable/Alert/TheAlert.vue';
+import TheAlert from './components/reusable/TheAlert.vue';
 
-import TheCard from './components/reusable/Card/TheCard.vue';
+import TheCard from './components/reusable/TheCard.vue';
 
-import TheInput from './components/reusable/Form/TheInput.vue';
+import TheHeader from './components/reusable/TheHeader.vue';
 
-import TextArea from './components/reusable/Form/TextArea.vue';
+import TheInput from './components/reusable/TheInput.vue';
 
-import TheSpinner from './components/reusable/Spinner/TheSpinner.vue';
+import TextArea from './components/reusable/TextArea.vue';
+
+import TheSpinner from './components/reusable/TheSpinner.vue';
 
 import store  from './store';
 
@@ -33,6 +35,8 @@ app.component('text-area', TextArea);
 app.component('the-alert', TheAlert);
 
 app.component('the-card', TheCard);
+
+app.component('the-header', TheHeader);
 
 app.component('the-input', TheInput);
 

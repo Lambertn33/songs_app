@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-6 offset-md-3 py-4">
-      <album-header headerTitle="Create New Album" :headerType="headerType"/>
+      <the-header headerTitle="Create New Album" :headerType="headerType"/>
       <form v-on:submit.prevent="handleCreateNewAlbum" enctype="multipart/form-data">
           <the-alert :alertMessage="alertMessage" :alertType="alertType" :hasAlert="hasAlert"/>
 
@@ -44,10 +44,7 @@
 </template>
 
 <script>
-  import AlbumHeader from './AlbumHeader.vue';
   export default {
-    components: { AlbumHeader },
-
     data() {
       return {
         isSubmitting: false,

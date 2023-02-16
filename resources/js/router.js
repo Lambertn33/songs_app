@@ -12,6 +12,8 @@ import EditAlbum from './components/private/albums/EditAlbum.vue';
 
 import AlbumSongs from './components/private/albums/albumSongs/AlbumSongs.vue';
 
+import CreateSong from './components/private/albums/albumSongs/CreateSong.vue';
+
 import AllGenres from './components/private/genres/AllGenres.vue';
 
 import AllSongs from './components/private/songs/AllSongs.vue';
@@ -37,7 +39,10 @@ const router = createRouter({
       { path: 'create', component: CreateAlbum },
       { path: ':id', children: [
         { path: 'edit', component: EditAlbum, },
-        { path: 'songs', component: AlbumSongs }
+        { path: 'songs', children: [
+          { path: '', component: AlbumSongs },
+          { path: 'create', component: CreateSong, name: 'createSong' }
+        ] }
       ] }
     ] },
     { path: '/all-songs', component: AllSongs, beforeEnter: checkAuth },
