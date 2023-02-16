@@ -9,15 +9,14 @@
           <div class="jumbotron">
             <h3><b>{{ albumTitle }}</b></h3>  
             <p>{{ albumDescription }}</p>  
-            <router-link :to="renderNewSongLink">
-              <button class="btn btn-primary">
-                Add New Song
-              </button>
-            </router-link>
+            <button class="btn btn-primary" @click=" renderCreateNewSongPage">
+              <plus-icon />
+              Add New Song
+            </button>
           </div>
           <div class="row pt-4" v-if="isSongsCountable">
-            <div class="col-md-4">
-              <song-card v-for="song in albumSongs" :key="song.id" :song="song"/>
+            <div class="col-md-4" v-for="song in albumSongs" :key="song.id">
+              <song-card  :song="song"/>
             </div>
           </div>
           <div v-else class="row pt-5">
@@ -27,20 +26,25 @@
       </div>
     </div>
   </div>
+  <Modal v-model:visible="isModalVisible" title="Success!">
+    <p><b>helll</b></p>
+  </Modal>
 </template>
 
 <script>
 import PlusIcon from 'vue-material-design-icons/Plus.vue';
 import SongCard from './SongCard.vue';
+import { Modal } from 'usemodal-vue3';
 
 export default {
-  components: { SongCard, PlusIcon },
+  components: { SongCard, PlusIcon, Modal },
   data() {
     return {
       albumSongs: [],
       albumTitle: '',
       albumDescription: '',
       isFetching: false,
+      isModalVisible: true,
       headerType: "View Album Songs",
     }
   },
@@ -54,6 +58,11 @@ export default {
       this.albumDescription = description;
       this.isFetching = false;
     },
+
+    renderCreateNewSongPage() {
+      this.$store.dispatch('setAlbumTitle', [this.albumTitle]);
+      this.$router.push(`/my-albums/${this.$route.params.id}/songs/create`);
+    }
   },
   mounted() {
     const albumId = this.$route.params.id;

@@ -30,10 +30,6 @@ class AlbumsService {
     return axios.get(`${endpointUrl}/${albumId}`, { headers });
   }
 
-  getAlbumSongs(albumId) {
-    return axios.get(`${endpointUrl}/${albumId}/songs`, { headers });
-  }
-
   editAlbum(editedAlbum, albumId) {
     const editedAlbumObject = {
       title: editedAlbum.title,
@@ -45,6 +41,19 @@ class AlbumsService {
 
   deleteAlbum(albumId) {  
     return axios.delete(`${endpointUrl}/${albumId}`, { headers });
+  }
+
+  getAlbumSongs(albumId) {
+    return axios.get(`${endpointUrl}/${albumId}/songs`, { headers });
+  }
+
+  createAlbumSong(newSong, albumId) {
+    const newSongObject = {
+      title: newSong.title,
+      length: newSong.length,
+      genreId: newSong.genreId,
+    };
+    return axios.post(`${endpointUrl}/${albumId}/songs`, newSongObject, { headers });
   }
 }
 

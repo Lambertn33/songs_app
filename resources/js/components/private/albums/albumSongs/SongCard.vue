@@ -8,11 +8,25 @@
       <p class="card-text">Genre: <b>{{ song.genre }}</b></p>
       <p class="card-text">Length: <b>{{ renderSongLength(song) }}</b></p>
     </template>
+    <template #card-footer>
+      <div class="card-footer">
+        <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="Delete Album">
+          <span class=" card-icon icon-delete">
+            <delete-icon />
+          </span>
+        </span>
+      </div>
+     </template>
     
   </the-card>
 </template>
 <script>
+  import ViewIcon from 'vue-material-design-icons/MusicNoteEighth.vue';
+  import EditIcon from 'vue-material-design-icons/Pencil.vue';
+  import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+
   export default {
+    components: { ViewIcon, EditIcon, DeleteIcon },
     props: {
       song: Object
     },

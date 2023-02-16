@@ -52,9 +52,23 @@
           },
           {
             to: `/my-albums/${this.$route.params.id}/songs`,
-            label: "View Album Songs"
+            label: "Album Songs"
           },  
-        ]
+        ],
+        createAndReadAlbumSongsLink: [
+          {
+            to: "/my-albums",
+            label: "My Albums"
+          },
+          {
+            to: `/my-albums/${this.$route.params.id}/songs`,
+            label: "Album Songs"
+          }, 
+          {
+            to: `/my-albums/${this.$route.params.id}/songs/create`,
+            label: "Create New"
+          },  
+        ],
       }
     },
     computed: {
@@ -62,6 +76,7 @@
         const createAndReadAlbumsLabel = "Create/ Read Albums";
         const updateAlbumLabel = 'Update Album';
         const viewAlbumSongsLabel = 'View Album Songs';
+        const createAndReadAlbumSongsLabel = 'Create/ Read Songs';
         let links = [];
         if (this.headerType == createAndReadAlbumsLabel) {
           links = [...this.createAndReadAlbumsLinks];
@@ -71,6 +86,9 @@
         }
         else if (this.headerType == viewAlbumSongsLabel) {
           links = [...this.viewAlbumSongsLinks];
+        }
+        else if (this.headerType == createAndReadAlbumSongsLabel) {
+          links = [...this.createAndReadAlbumSongsLink];
         }
         return links;
       },

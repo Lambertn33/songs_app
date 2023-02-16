@@ -47,8 +47,8 @@
   export default {
     data() {
       return {
-        isSubmitting: false,
         headerType: "Create/ Read Albums",
+        isSubmitting: false,
         hasAlert: false,
         alertMessage: '',
         alertType: '',

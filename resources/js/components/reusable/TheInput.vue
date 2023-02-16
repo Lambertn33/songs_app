@@ -38,6 +38,10 @@
         else if(this.inputType == "date") {
           inputProps = { max: new Date().toISOString().split('T')[0] }
         }
+
+        else if(this.inputType == "number") {
+          inputProps = { min: 0 }
+        }
         return inputProps;
       }
     }
