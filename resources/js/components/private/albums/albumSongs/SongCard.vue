@@ -8,11 +8,24 @@
       <p class="card-text">Genre: <b>{{ song.genre }}</b></p>
       <p class="card-text">Length: <b>{{ renderSongLength(song) }}</b></p>
     </template>
+    <template #card-footer>
+      <div class="card-footer">
+        <span data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-placement="top" title="Delete Album">
+          <span class=" card-icon icon-delete" @click="$emit('deleteSong', song.id)">
+            <delete-icon />
+          </span>
+        </span>
+      </div>
+     </template>
     
   </the-card>
 </template>
 <script>
+  import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+
   export default {
+    components: { DeleteIcon },
+    emits: ['deleteSong'],
     props: {
       song: Object
     },
@@ -23,7 +36,7 @@
         let secs = length % 60;
         let songLength = `${mins} minutes ${secs} seconds`;
         return songLength;
-      }
+      },
     }
   }
 </script>

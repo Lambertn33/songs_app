@@ -57,7 +57,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .card-icon {
     color: #fff;
     padding: 0.125rem;

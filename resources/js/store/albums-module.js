@@ -1,13 +1,18 @@
 import AlbumsService from '../services/albums';
 
 let initialState = {
-  myAlbums: []
+  myAlbums: [],
+  albumTitle: '',
 }
 
 export const albumsStore = {
   state: initialState,
 
   actions: {
+    setAlbumTitle({commit}, title) {
+      commit('setAlbumTitle', title);
+    },
+
     fetchMyAlbums() {
       return AlbumsService.getMyAlbums().then(
         data => {
@@ -63,6 +68,28 @@ export const albumsStore = {
       );
     },
 
+    createAlbumSong({commit}, {newSong, albumId}) {
+      return AlbumsService.createAlbumSong(newSong, albumId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+
+    deleteAlbumSong({ commit }, { albumId, songId }) {
+      return AlbumsService.deleteAlbumSong(albumId, songId).then(
+        data => {
+          return Promise.resolve(data);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },  
+
     editAlbum({ commit }, {editedAlbum, albumId}) {
       return AlbumsService.editAlbum(editedAlbum, albumId).then(
         data => {
@@ -72,6 +99,18 @@ export const albumsStore = {
           return Promise.reject(error);
         }
       );
+    }
+  },
+
+  mutations: {
+    setAlbumTitle(state, albumTitle) {
+      state.albumTitle = albumTitle;
+    }
+  },
+
+  getters: {
+    getAlbumTitle(state) {
+      return state.albumTitle;
     }
   }
 }

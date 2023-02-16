@@ -16,6 +16,8 @@ import TheHeader from './components/reusable/TheHeader.vue';
 
 import TheInput from './components/reusable/TheInput.vue';
 
+import TheSelect from './components/reusable/TheSelect.vue';
+
 import TextArea from './components/reusable/TextArea.vue';
 
 import TheSpinner from './components/reusable/TheSpinner.vue';
@@ -39,6 +41,8 @@ app.component('the-card', TheCard);
 app.component('the-header', TheHeader);
 
 app.component('the-input', TheInput);
+
+app.component('the-select', TheSelect);
 
 app.component('the-spinner', TheSpinner);
 

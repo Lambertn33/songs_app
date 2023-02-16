@@ -53,14 +53,15 @@
           const { status, message } = response.data;
           if (status == 'success') {
             this.isModalVisible = true;
-            this.deletingMessage = message
+            this.deletingMessage = message;
             this.myAlbums = this.myAlbums.filter((album) => {
               return album.id !== albumId
             });
           }
           this.isDeleting = false;
         } catch (error) {
-          console.log(error);
+          this.deletingMessage = error.response.data.message;
+          this.isDeleting = true;
         }
       }
     },
