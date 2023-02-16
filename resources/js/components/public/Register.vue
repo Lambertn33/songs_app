@@ -37,7 +37,10 @@
            @changeValue="newValue => user.passwordConfirm = newValue"
           />
 
-          <button type="submit" :class="renderBtnClasses">{{ renderBtnText }}</button>
+          <button type="submit" :class="renderBtnClasses">
+            <account-plus />
+            <span>{{ renderBtnText }}</span>
+          </button>
         </form>
       </div>
     </div>
@@ -45,7 +48,9 @@
 </template>
 
 <script>
+import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
   export default {
+    components: { AccountPlus },
     data() {
       return {
         registerTitle: 'Welcome To movies App',
@@ -128,6 +133,12 @@
 </script>
 
 <style scoped>
+.btn-primary {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
   form {
     border: 0.0625rem solid #000;
     padding: 1.5rem;

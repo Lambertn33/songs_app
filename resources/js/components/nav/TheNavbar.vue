@@ -8,6 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto">
         <li class="nav-item" v-for="link in getLinks" :key="link.name">
+          <component :is="link.icon" class="icon"/>
           <router-link class="nav-link active" aria-current="page" :to="link.href">{{ link.name }}</router-link>
         </li>
       </ul>
@@ -27,7 +28,13 @@
 </template>
 
 <script>
+  import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
+  import LoginIcon from 'vue-material-design-icons/Login.vue';
+  import AlbumIcon from 'vue-material-design-icons/Album.vue';
+  import SongsIcon from 'vue-material-design-icons/MusicNoteEighth.vue';
+  import GenresIcon from 'vue-material-design-icons/Tune.vue';
   export default {
+    components: { AccountPlus, LoginIcon, AlbumIcon, SongsIcon, GenresIcon },
     data() {
       return {
         isAuthenticated: false,
@@ -35,25 +42,30 @@
         publicLinks: [
           {
             name: 'Login',
-            href: '/'
+            href: '/',
+            icon: 'login-icon'
           },
           {
             name: 'Register',
-            href: '/register'
+            href: '/register',
+            icon: 'account-plus'
           },
         ],
         privateLinks: [
           {
             name: 'Albums',
-            href: '/my-albums'
+            href: '/my-albums',
+            icon: 'album-icon'
           },
           {
             name: 'Songs',
-            href: '/all-songs'
+            href: '/all-songs',
+            icon: 'songs-icon'
           },
           {
             name: 'Genres',
-            href: '/all-genres'
+            href: '/all-genres',
+            icon: 'genres-icon'
           },
         ],
       }
@@ -78,13 +90,26 @@
 </script>
 
 <style scoped>
+
+  .icon {
+    color: #fff;
+  }
   .navbar {
     padding: 1rem;
+  }
+  .navbar-nav {
+    display: flex;
+    gap: 1.5rem;
   }
   .navbar-brand,
   .nav-link {
     color: white !important;
     font-weight: 600;
+  }
+  .nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .navbar-collapse {
     margin-left: 2.5rem;
@@ -93,5 +118,9 @@
   .nav-link:hover {
     transition: .4s;
     color:turquoise;
+  }
+
+  a.router-link-exact-active {
+    color: black !important;
   }
 </style>

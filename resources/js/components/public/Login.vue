@@ -22,7 +22,10 @@
            :inputValue="loginData.password" 
            @changeValue="newValue => loginData.password = newValue"
           />
-          <button type="submit" :class="renderBtnClasses">{{ renderBtnText }}</button>
+          <button type="submit" :class="renderBtnClasses">
+            <login-icon />
+            <span>{{ renderBtnText }}</span>
+          </button>
         </form>
       </div>
     </div>
@@ -30,7 +33,9 @@
 </template>
 
 <script>
+  import LoginIcon from 'vue-material-design-icons/Login.vue';
   export default { 
+    components: { LoginIcon },
     data() {
       return {
         loginTitle: 'Welcome To movies App',
@@ -101,6 +106,12 @@
 </script>
 
 <style scoped>
+  .btn-primary {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
   form {
     border: 0.0625rem solid #000;
     padding: 1.5rem;

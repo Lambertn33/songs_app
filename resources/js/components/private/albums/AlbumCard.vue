@@ -7,23 +7,30 @@
       <p class="card-text">Released on {{ album.release_date }}</p>
       <div class="card-buttons">
         <router-link :to="renderAlbumSongs">
-          <button class="btn btn-info btn-flat">
-            View Songs
-          </button>
+          <span class=" card-icon icon-view">
+            <view-icon />
+          </span>
         </router-link>
         <router-link :to="renderEditLink">
-          <button class="btn btn-warning btn-flat">
-            Edit Album
-          </button>
-          </router-link>
-        <button :class="renderBtnObjects.renderDeleteClasses" @click="$emit('deleteAlbum', album.id)">{{ renderBtnObjects.renderDeleteText }}</button>
+          <span class=" card-icon icon-edit">
+            <edit-icon />
+          </span>
+        </router-link>
+        <span class=" card-icon icon-delete"  @click="$emit('deleteAlbum', album.id)">
+          <delete-icon />
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import ViewIcon from 'vue-material-design-icons/Eye.vue';
+  import EditIcon from 'vue-material-design-icons/Pencil.vue';
+  import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+
   export default {
+    components: { ViewIcon, EditIcon, DeleteIcon },
     props: {
       album: Object,
       renderBtnObjects: Object
@@ -56,14 +63,37 @@
     width: 18rem;
   }
 
+  .card-icon {
+    color: #fff;
+    padding: 0.125rem;
+    border-radius: 0.25rem;
+  }
+  .card-icon:hover {
+    padding: 0.25rem;
+    transition: .01s;
+    cursor: pointer;
+  }
+
   .card-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .card-img-top {
     object-fit: cover;
     width: 100%;
+  }
+
+  .icon-view {
+    background: #0dcaf0;
+  }
+
+  .icon-edit {
+    background: #ffc107;
+  }
+
+  .icon-delete {
+    background: #dc3545;
   }
 </style>
